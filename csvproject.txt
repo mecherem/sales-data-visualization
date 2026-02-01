@@ -1,0 +1,43 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+# 1. STEP: Generate synthetic sales data
+# This part replaces the need for an external CSV for demo purposes
+def generate_sample_data():
+    data = {
+        'date': pd.date_range(start='2024-01-01', periods=12, freq='ME'),
+        'revenue': [12000, 15000, 11000, 19000, 22000, 21000, 25000, 28000, 24000, 31000, 35000, 40000]
+    }
+    df_temp = pd.DataFrame(data)
+    df_temp.to_csv('sales_data.csv', index=False)
+    print("Success: 'sales_data.csv' has been created.")
+
+# 2. STEP: Data processing and visualization
+def visualize_revenue():
+    # Load the data
+    df = pd.read_csv('sales_data.csv')
+    
+    # Ensure date column is in datetime format
+    df['date'] = pd.to_datetime(df['date'])
+
+    # Visualization settings
+    plt.figure(figsize=(12, 6))
+    sns.set_style("whitegrid") # More professional look
+    
+    # Plotting
+    plot = sns.lineplot(data=df, x='date', y='revenue', marker='o', linewidth=2.5, color='#2ecc71')
+
+    # Formatting the chart
+    plt.title('Monthly Revenue Analysis', fontsize=16, pad=20)
+    plt.xlabel('Month', fontsize=12)
+    plt.ylabel('Revenue (USD)', fontsize=12)
+    
+    # Show plot
+    plt.tight_layout()
+    plt.show()
+
+if __name__ == "__main__":
+    generate_sample_data()
+    visualize_revenue()
